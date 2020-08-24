@@ -1,0 +1,116 @@
+.jackpot-container {
+  height: 400px;
+  margin-top: 50px;
+}
+
+.jackpot-inner {
+  padding: 20px; 
+  margin: 10px;
+  background-color: white;
+  box-shadow: 5px 4px 20px 1px rgba(110, 110, 110, 0.5);
+  width: 40%;
+  position: relative;
+  min-width: 300px;
+  max-width: 350px;
+}
+
+.center {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.jackpot-main {
+  background: linear-gradient(74.5deg, #04b1e7, #63f6bf);
+  width: 108%;
+  color: white;
+  left: -4%;
+  height: 100px;
+  -ms-transform: rotate(20deg);
+  transform: rotate(-1.5deg);
+  position: absolute;
+}
+
+.jackpot-container .timer {
+  font-size: 42px;
+  @media(max-width:992px) {
+    font-size: 38px;
+  }
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.jackpot-inner .jackpot-inner-child {
+  margin-top:5px;
+  margin-bottom: 5px;
+}
+
+.draw-history {
+  color: #fff;
+  margin-top: 50px;
+  text-align: center;
+}
+
+.draw-history table {
+  background-color: #fff;
+  border-radius: 10px;
+  min-width: 400px;
+}
+
+.responsive-text {
+  @media (max-width: 768px) {
+    font-size: smaller;
+    padding: 8px 5px 8px 5px !important;
+  }
+}
+
+.draw-history .draw-history-table-wrapper {
+  width: 80%;
+  @media(max-width: 576px) {
+    width: 98%;
+  }
+}
+
+.draw-history thead {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.draw-history table th {
+  border: none;
+}
+
+.buy-ticket-modal{
+  .modal-head {
+    opacity: 80%;
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 2px;
+  }
+  .modal-foot {
+    font-family: 'Nunito Sans', sans-serif;    
+  }
+}
+
+.draw-num {
+  font-family: 'Teko', sans-serif;
+  font-size: 25px;
+  color: #818181;
+}
+
+.jackpot-foot {
+  font-family: 'Nunito Sans', sans-serif;
+}
+
+.hover-copy {
+  cursor: pointer;
+  &:hover {
+    font-weight: bolder;
+  }
+}

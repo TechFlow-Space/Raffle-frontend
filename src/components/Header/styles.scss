@@ -1,0 +1,31 @@
+.menu-items {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.main-nav {
+  background: #fff!important;
+  z-index: 99;
+  box-shadow: 0 0 8px rgba(0,0,0,.1);
+}
+
+.one-address {
+  font-style: italic;
+  color: gray;
+}
+
+.dropdown {
+  a {
+    color: gray;
+  }
+  .dropdown-text {
+    margin-left: 10px;
+  }
+}
+
+// .dropdown-menu {
+//   @media(min-width: 992px) {
+//     left: -120%;
+//     min-width: 20rem;
+//   }
+// }
