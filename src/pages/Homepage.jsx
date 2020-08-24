@@ -43,7 +43,7 @@ function Homepage(props) {
       const balance = await hmy.blockchain.getBalance({
         address: storedAddress,
       });
-      props.dispatch(updateWallet(storedAddress, new hmy.utils.Unit(balance.result).asWei().toOne()));
+      props.dispatch(updateWallet(storedAddress, new hmy.utils.Unit(balance.result).asWei().toWei()));
     }
   }
 
@@ -65,7 +65,7 @@ function Homepage(props) {
         const balance = await hmy.blockchain.getBalance({
           address: props.walletAddress,
         });
-        props.dispatch(updateWallet(props.walletAddress, new hmy.utils.Unit(balance.result).asWei().toOne()));
+        props.dispatch(updateWallet(props.walletAddress, new hmy.utils.Unit(balance.result).asWei().toWei()));
       }
     } catch (err) {
       setError(err);
@@ -83,7 +83,7 @@ function Homepage(props) {
       const balance = await hmy.blockchain.getBalance({
         address: myWallet.address,
       });
-      props.dispatch(updateWallet(myWallet.address, new hmy.utils.Unit(balance.result).asWei().toOne()));
+      props.dispatch(updateWallet(myWallet.address, new hmy.utils.Unit(balance.result).asWei().toWei()));
     } catch(err) {
       setError("Make sure you have Math Wallet extension, and is enabled");
       getExtensionMsg("Enable Math Wallet or Get it <a target='_blank' href='https://chrome.google.com/webstore/detail/math-wallet/afbcbjpbpfadlkmhmclhkeeodmamcflc?hl=en'>here</a>")
@@ -94,6 +94,7 @@ function Homepage(props) {
   const logUserOut = () => {
     localStorage.removeItem('oneAddress');
     props.dispatch(updateWallet('', 0));
+    new HarmonyExtension(window.harmony).logout();
   }
 
   const showSuccessAlert = (res, txHash, ticketQty) => {
@@ -102,10 +103,15 @@ function Homepage(props) {
   }
   
   const buyTickets = async (ticketQty) => {
-    setLoading(true);
     ticketQty = new BigNumber(ticketQty);
     const perTicketPrice = new BigNumber(props.ticketPrice);
     const totalCost = ticketQty.multipliedBy(perTicketPrice);
+    if(totalCost.minus(props.walletBalance).toNumber() >= 0) {
+      //insufficient funds
+      toast.error("Insufficient Balance.");
+      return;
+    }
+    setLoading(true);
     try{
       const txResult = await contractSendTxHelper(contractInstance, 'buyTicket', totalCost, []);
       if(txResult.status && txResult.result.status !== 'rejected') {

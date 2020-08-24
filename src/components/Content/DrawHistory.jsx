@@ -30,7 +30,7 @@ const DrawHistoryTable = ({historyData}) => {
         {historyData.map((data, id) => (
           <tr key={id}>
             <td className='responsive-text'>{moment(new Date().setDate(new Date().getDate()-id-1)).tz('Africa/Bissau').format('YYYY/MM/DD')}</td>
-            <td className='responsive-text'>{new BigNumber(data.participants).multipliedBy(data.TicketPrice).toFixed()}</td>
+            <td className='responsive-text'>{new BigNumber(data.participants).multipliedBy(data.TicketPrice).dividedBy(Math.pow(10,18)).toFixed(2,1)}</td>
             <td className='responsive-text hover-copy' onClick={()=>copyToClipboard(data.First)}>{formatAddress(toBech32(data.First))}</td>
             <td className='responsive-text hover-copy' onClick={()=>copyToClipboard(data.Second)}>{formatAddress(toBech32(data.Second))}</td>
             <td className='responsive-text hover-copy' onClick={()=>copyToClipboard(data.Third)}>{formatAddress(toBech32(data.Third))}</td>

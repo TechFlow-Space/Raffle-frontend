@@ -4,12 +4,15 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { GiMoneyStack } from 'react-icons/gi';
 import { FaSignOutAlt } from 'react-icons/fa';
+import { VscCircleFilled } from 'react-icons/vsc';
 
+import { hmy } from '../../utils/harmony';
 import { formatAddress } from '../../utils/formatting';
 import Logo from '../../assets/images/logo.svg';
 import './styles.scss';
 
-function Header({logUserIn, address, logout, walletBalance}) {
+function Header({logUserIn, address, logout, walletBalance, network}) {
+  walletBalance = new hmy.utils.Unit(walletBalance).asWei().toOne();
   return(
     <Navbar className='main-nav' expand="lg">
       <Navbar.Brand alt='Harmony Raffle'>
@@ -24,8 +27,14 @@ function Header({logUserIn, address, logout, walletBalance}) {
           <Nav.Link className='menu-items'>FAQ</Nav.Link>
           <Nav.Link className='menu-items'>Contact</Nav.Link>
         </Nav>
+        <Nav.Item>
+          <span className='current-network'>
+            <VscCircleFilled color='#43e650' />
+            {network}
+          </span>
+        </Nav.Item>
         {!address ?
-          <Button onClick={logUserIn} style={{width: '100px'}} className='btn-theme'>Login</Button>
+          <Button onClick={logUserIn} style={{width: '100px', marginLeft:'1rem'}} className='btn-theme'>Login</Button>
           :
           <NavDropdown title={formatAddress(address)} id="">
             <NavDropdown.Item>
@@ -52,6 +61,7 @@ function Header({logUserIn, address, logout, walletBalance}) {
 const mapStateToProps = (store) => ({
   address: store.lotteryReducer.walletAddress,
   walletBalance: store.lotteryReducer.walletBalance,
+  network: store.lotteryReducer.network,
 });
 
 export default connect(mapStateToProps)(Header);

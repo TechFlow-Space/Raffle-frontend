@@ -7,6 +7,7 @@ const initialState = {
   drawNum: 0,
   walletAddress: '',
   walletBalance: 0,
+  network: 'testnet',
 };
 
 const lotteryReducer = (state=initialState, action) => {
